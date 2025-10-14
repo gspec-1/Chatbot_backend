@@ -312,6 +312,9 @@ async def clear_conversation_memory(session_id: str):
 # Serve static files (for the web interface)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+# Serve assets files (for images, etc.)
+app.mount("/assets", StaticFiles(directory="assets"), name="assets")
+
 @app.get("/chat-interface", response_class=HTMLResponse)
 async def chat_interface():
     """Serve the chat interface"""
@@ -359,6 +362,7 @@ async def admin_dashboard_interface():
             content="<h1>Admin dashboard not found</h1><p>Please ensure static/admin_dashboard.html exists</p>",
             status_code=404
         )
+
 
 # Consultation Scheduling Endpoints
 @app.get("/consultation/available-slots")
