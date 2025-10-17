@@ -62,7 +62,7 @@ class ConsultationLogger:
         self.smtp_port = int(os.getenv("SMTP_PORT", "587"))
         self.smtp_username = os.getenv("SMTP_USERNAME", "")
         self.smtp_password = os.getenv("SMTP_PASSWORD", "")
-        self.from_email = os.getenv("FROM_EMAIL", "ask@akenotech.com")
+        self.from_email = os.getenv("FROM_EMAIL", "ask@softtechniques.com")
         
         # Initialize default team members if none exist
         if not self.team_members:
@@ -103,13 +103,13 @@ class ConsultationLogger:
         default_team = [
             {
                 "name": "Sales Team",
-                "email": "ask@akenotech.com",
+                "email": "ask@softtechniques.com",
                 "role": "Sales Representative",
                 "phone": "(888) 324-6560"
             },
             {
                 "name": "Project Manager",
-                "email": "ask@akenotech.com",
+                "email": "ask@softtechniques.com",
                 "role": "Project Manager",
                 "phone": "(888) 324-6560"
             }
@@ -196,8 +196,8 @@ Timestamp: {log_entry.timestamp}
 Please contact this prospect within 24 hours to confirm their appointment.
 
 Contact Information:
-- Phone: (888) 324-6560
-- Email: ask@akenotech.com
+- Phone: +1 (555) 012-3456
+- Email: ask@softtechniques.com
 
 This is an automated notification from your consultation scheduling system.
         """

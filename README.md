@@ -121,15 +121,12 @@ curl -X POST "http://localhost:8000/chat" \
 Add this script to your website's HTML:
 
 ```html
-<script 
-  src="http://localhost:8000/static/chatbot-widget.js"
-  data-api-url="http://localhost:8000/chat"
-  data-position="bottom-right"
-  data-primary-color="#4f46e5"
-  data-secondary-color="#7c3aed"
-  data-title="Agentic AI Assistant"
-  data-subtitle="Ask me about agentic AI"
-></script>
+<!-- Note: Static HTML files have been removed. Use the API endpoints directly. -->
+<script>
+  // Use the API endpoint directly
+  const apiUrl = "http://localhost:8000/chat";
+  // Implement your own chat interface using the API
+</script>
 ```
 
 ### Option 2: Custom Integration
@@ -266,9 +263,6 @@ Chatbot/
 ├── initialize.py          # System initialization
 ├── requirements.txt       # Python dependencies
 ├── env.example           # Environment variables template
-├── static/               # Static files
-│   ├── chat.html         # Web chat interface
-│   └── chatbot-widget.js # Embeddable widget
 └── README.md             # This file
 ```
 

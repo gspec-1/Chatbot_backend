@@ -177,8 +177,8 @@ class ConsultationScheduler:
             "message": f"Consultation request created successfully! Your consultation ID is {consultation_id}.",
             "next_steps": "Our team will contact you within 24 hours to confirm your appointment.",
             "contact_info": {
-                "phone": "(888) 324-6560",
-                "email": "ask@akenotech.com"
+                "phone": "+1 (555) 012-3456",
+                "email": "ask@softtechniques.com"
             },
             "logged": log_result["success"]
         }

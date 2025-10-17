@@ -74,7 +74,6 @@ def create_directories():
     
     directories = [
         Config.CHROMA_PERSIST_DIRECTORY,
-        "static",
         "logs"
     ]
     
@@ -107,8 +106,7 @@ def main():
     print("\nNext steps:")
     print("1. Copy env.example to .env and configure your API keys")
     print("2. Run: python main.py")
-    print("3. Visit: http://localhost:8000/chat-interface")
-    print("4. Or use the API at: http://localhost:8000/docs")
+    print("3. Use the API at: http://localhost:8000/docs")
 
 if __name__ == "__main__":
     main()

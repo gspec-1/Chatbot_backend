@@ -5,8 +5,6 @@ os.environ["LANGCHAIN_API_KEY"] = ""
 
 from fastapi import FastAPI, HTTPException, Depends, UploadFile, File, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
 from typing import Dict, Any, Optional
 import uuid
 import time
@@ -15,7 +13,7 @@ from datetime import datetime
 from models import ChatRequest, ChatResponse, ChatMessage
 from rag_system import rag_system
 from n8n_integration import n8n_integration
-from simple_knowledge_base import simple_knowledge_base as knowledge_base
+from knowledge_base import knowledge_base
 from scheduling_system import consultation_scheduler
 from consultation_logger import consultation_logger
 from config import Config
@@ -309,59 +307,11 @@ async def clear_conversation_memory(session_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error clearing conversation memory: {str(e)}")
 
-# Serve static files (for the web interface)
-app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Serve assets files (for images, etc.)
-app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
-@app.get("/chat-interface", response_class=HTMLResponse)
-async def chat_interface():
-    """Serve the chat interface"""
-    try:
-        with open("static/chat.html", "r", encoding="utf-8") as f:
-            return HTMLResponse(content=f.read())
-    except FileNotFoundError:
-        return HTMLResponse(
-            content="<h1>Chat interface not found</h1><p>Please ensure static/chat.html exists</p>",
-            status_code=404
-        )
 
-@app.get("/pdf-upload", response_class=HTMLResponse)
-async def pdf_upload_interface():
-    """Serve the PDF upload interface"""
-    try:
-        with open("static/pdf_upload.html", "r", encoding="utf-8") as f:
-            return HTMLResponse(content=f.read())
-    except FileNotFoundError:
-        return HTMLResponse(
-            content="<h1>PDF upload interface not found</h1><p>Please ensure static/pdf_upload.html exists</p>",
-            status_code=404
-        )
 
-@app.get("/schedule-consultation", response_class=HTMLResponse)
-async def consultation_scheduler_interface():
-    """Serve the consultation scheduler interface"""
-    try:
-        with open("static/consultation_scheduler.html", "r", encoding="utf-8") as f:
-            return HTMLResponse(content=f.read())
-    except FileNotFoundError:
-        return HTMLResponse(
-            content="<h1>Consultation scheduler not found</h1><p>Please ensure static/consultation_scheduler.html exists</p>",
-            status_code=404
-        )
 
-@app.get("/admin-dashboard", response_class=HTMLResponse)
-async def admin_dashboard_interface():
-    """Serve the admin dashboard interface"""
-    try:
-        with open("static/admin_dashboard.html", "r", encoding="utf-8") as f:
-            return HTMLResponse(content=f.read())
-    except FileNotFoundError:
-        return HTMLResponse(
-            content="<h1>Admin dashboard not found</h1><p>Please ensure static/admin_dashboard.html exists</p>",
-            status_code=404
-        )
 
 
 # Consultation Scheduling Endpoints

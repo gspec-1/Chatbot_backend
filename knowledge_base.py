@@ -1,18 +1,25 @@
 import os
 import json
+import warnings
 from typing import List, Dict, Any
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+# Suppress the Chroma deprecation warning
+warnings.filterwarnings("ignore", message=".*Chroma.*deprecated.*", category=DeprecationWarning)
 # Simplified imports to avoid langchain_community dependency
 try:
     from langchain_community.document_loaders import TextLoader, PyPDFLoader
-    from langchain_community.vectorstores import Chroma
+    from langchain_chroma import Chroma
 except ImportError:
     # Fallback to basic text processing
     TextLoader = None
     PyPDFLoader = None
-    from langchain.vectorstores import Chroma
+    try:
+        from langchain_chroma import Chroma
+    except ImportError:
+        from langchain.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
-from langchain.schema import Document
+from langchain_core.documents import Document
 from config import Config
 
 class KnowledgeBase:
