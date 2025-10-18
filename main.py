@@ -28,9 +28,16 @@ app = FastAPI(
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure this properly for production
+    allow_origins=[
+        "http://localhost:3000",
+        "https://softtechniques.com",
+        "https://www.softtechniques.com",
+        "https://softtechniques.netlify.app",
+        "https://*.netlify.app",
+        "https://*.railway.app"
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -65,15 +72,31 @@ async def root():
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
-    return {
-        "status": "healthy",
-        "timestamp": datetime.now().isoformat(),
-        "services": {
-            "rag_system": "operational",
-            "knowledge_base": "operational",
-            "n8n_integration": "enabled" if Config.N8N_WEBHOOK_URL else "disabled (using local processing)"
+    try:
+        # Check if OpenAI API key is configured
+        openai_status = "configured" if Config.OPENAI_API_KEY else "missing"
+        
+        return {
+            "status": "healthy",
+            "timestamp": datetime.now().isoformat(),
+            "services": {
+                "rag_system": "operational",
+                "knowledge_base": "operational",
+                "n8n_integration": "enabled" if Config.N8N_WEBHOOK_URL else "disabled (using local processing)",
+                "openai_api": openai_status
+            },
+            "environment": {
+                "host": Config.HOST,
+                "port": Config.PORT,
+                "chroma_persist_directory": Config.CHROMA_PERSIST_DIRECTORY
+            }
         }
-    }
+    except Exception as e:
+        return {
+            "status": "unhealthy",
+            "timestamp": datetime.now().isoformat(),
+            "error": str(e)
+        }
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat(chat_request: ChatRequest):
@@ -125,7 +148,19 @@ async def chat(chat_request: ChatRequest):
         return rag_response
         
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error processing chat request: {str(e)}")
+        # Log the error for debugging
+        print(f"Chat error: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        
+        # Return more specific error message
+        error_detail = f"Error processing chat request: {str(e)}"
+        if "OPENAI_API_KEY" in str(e) or "api key" in str(e).lower():
+            error_detail = "OpenAI API key not configured. Please contact support."
+        elif "connection" in str(e).lower() or "timeout" in str(e).lower():
+            error_detail = "Service temporarily unavailable. Please try again."
+        
+        raise HTTPException(status_code=500, detail=error_detail)
 
 @app.get("/sessions/{session_id}")
 async def get_session_history(session_id: str):
