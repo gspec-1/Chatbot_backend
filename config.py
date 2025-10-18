@@ -10,7 +10,13 @@ load_dotenv()
 
 class Config:
     # OpenAI Configuration
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "").strip()
+    
+    # Validate API key format
+    if not OPENAI_API_KEY:
+        raise ValueError("OPENAI_API_KEY environment variable is required")
+    if not OPENAI_API_KEY.startswith("sk-"):
+        raise ValueError("OPENAI_API_KEY must start with 'sk-'")
     
     # LangSmith Configuration (Explicitly disabled to prevent 403 errors)
     LANGCHAIN_API_KEY = None  # Explicitly set to None
@@ -25,8 +31,8 @@ class Config:
     PORT = int(os.getenv("PORT", 8000))
     
     # N8N Configuration (Optional - will use local processing if not configured)
-    N8N_WEBHOOK_URL = os.getenv("N8N_WEBHOOK_URL")  # Optional
-    N8N_API_KEY = os.getenv("N8N_API_KEY")  # Optional
+    N8N_WEBHOOK_URL = os.getenv("N8N_WEBHOOK_URL", "").strip() or None  # Optional
+    N8N_API_KEY = os.getenv("N8N_API_KEY", "").strip() or None  # Optional
     
     # Model Configuration
     EMBEDDING_MODEL = "text-embedding-3-small"

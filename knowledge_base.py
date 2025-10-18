@@ -24,6 +24,10 @@ from config import Config
 
 class KnowledgeBase:
     def __init__(self):
+        # Validate API key before initializing
+        if not Config.OPENAI_API_KEY:
+            raise ValueError("OpenAI API key is not configured")
+        
         self.embeddings = OpenAIEmbeddings(
             model=Config.EMBEDDING_MODEL,
             openai_api_key=Config.OPENAI_API_KEY

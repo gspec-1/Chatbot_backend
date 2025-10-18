@@ -21,6 +21,10 @@ from models import SearchResult, ChatResponse
 
 class RAGSystem:
     def __init__(self):
+        # Validate API key before initializing
+        if not Config.OPENAI_API_KEY:
+            raise ValueError("OpenAI API key is not configured")
+        
         self.llm = ChatOpenAI(
             model=Config.CHAT_MODEL,
             temperature=Config.TEMPERATURE,
