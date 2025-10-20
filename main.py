@@ -25,11 +25,21 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Add CORS middleware
+# Configure CORS from environment
+# ALLOWED_ORIGINS can be a comma-separated list of origins, e.g.
+# "https://your-frontend.up.railway.app, http://localhost:3000"
+# Default includes your Railway frontend and localhost for development
+_default_origins = "https://softtechniquesweb-production.up.railway.app,http://localhost:3000"
+_allowed_origins_env = os.getenv("ALLOWED_ORIGINS", _default_origins)
+_allowed_origins_list = [o.strip() for o in _allowed_origins_env.split(",") if o.strip()]
+
+_use_wildcard = len(_allowed_origins_list) == 1 and _allowed_origins_list[0] == "*"
+_allow_credentials = not _use_wildcard  # Starlette forbids credentials with wildcard
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure this properly for production
-    allow_credentials=True,
+    allow_origins=["*"] if _use_wildcard else _allowed_origins_list,
+    allow_credentials=_allow_credentials,
     allow_methods=["*"],
     allow_headers=["*"],
 )
