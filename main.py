@@ -27,9 +27,9 @@ app = FastAPI(
 
 # Configure CORS from environment
 # ALLOWED_ORIGINS can be a comma-separated list of origins, e.g.
-# "https://your-frontend.up.railway.app, http://localhost:3000"
-# Default includes your Railway frontend and localhost for development
-_default_origins = "https://softtechniquesweb-production.up.railway.app,http://localhost:3000"
+# "https://softtechniques.com, http://localhost:3000"
+# Default includes your custom domain and localhost for development
+_default_origins = "https://softtechniques.com,http://localhost:3000"
 _allowed_origins_env = os.getenv("ALLOWED_ORIGINS", _default_origins)
 _allowed_origins_list = [o.strip() for o in _allowed_origins_env.split(",") if o.strip()]
 
