@@ -5,6 +5,7 @@ os.environ["LANGCHAIN_API_KEY"] = ""
 
 from fastapi import FastAPI, HTTPException, Depends, UploadFile, File, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from typing import Dict, Any, Optional
 import uuid
 import time
@@ -29,7 +30,7 @@ app = FastAPI(
 # ALLOWED_ORIGINS can be a comma-separated list of origins, e.g.
 # "https://softtechniques.com, http://localhost:3000"
 # Default includes your custom domain and localhost for development
-_default_origins = "https://softtechniques.com,http://localhost:3000"
+_default_origins = "https://softtechniques.com,http://localhost:3000,http://127.0.0.1:5500,http://localhost:5500"
 _allowed_origins_env = os.getenv("ALLOWED_ORIGINS", _default_origins)
 _allowed_origins_list = [o.strip() for o in _allowed_origins_env.split(",") if o.strip()]
 
@@ -38,11 +39,14 @@ _allow_credentials = not _use_wildcard  # Starlette forbids credentials with wil
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"] if _use_wildcard else _allowed_origins_list,
-    allow_credentials=_allow_credentials,
+    allow_origins=["*"],  # Allow all origins for development
+    allow_credentials=False,  # Must be False when using wildcard
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount static files for admin dashboard
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # In-memory session storage (use Redis or database in production)
 sessions: Dict[str, Dict[str, Any]] = {}
@@ -68,9 +72,21 @@ async def root():
         "endpoints": {
             "chat": "/chat",
             "health": "/health",
-            "docs": "/docs"
+            "docs": "/docs",
+            "dashboard": "/dashboard"
         }
     }
+
+@app.get("/dashboard")
+async def dashboard():
+    """Serve the admin dashboard"""
+    from fastapi.responses import FileResponse
+    import os
+    dashboard_path = os.path.join("static", "admin_dashboard.html")
+    if os.path.exists(dashboard_path):
+        return FileResponse(dashboard_path)
+    else:
+        raise HTTPException(status_code=404, detail="Dashboard not found")
 
 @app.get("/health")
 async def health_check():
