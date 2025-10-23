@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test script to verify the new Aken persona
+Test script to verify the new Softbot persona
 """
 
 import requests
@@ -9,9 +9,9 @@ import json
 # Base URL for the API
 BASE_URL = "http://localhost:8000"
 
-def test_aken_persona():
-    """Test the new Aken persona"""
-    print("🧪 Testing Aken Persona...")
+def test_softbot_persona():
+    """Test the new Softbot persona"""
+    print("🧪 Testing Softbot Persona...")
     
     test_messages = [
         "Hi, who are you?",
@@ -25,7 +25,7 @@ def test_aken_persona():
             print(f"\n📤 Testing: '{message}'")
             response = requests.post(f"{BASE_URL}/chat", json={
                 "message": message,
-                "session_id": "test_aken_persona"
+                "session_id": "test_softbot_persona"
             })
             
             if response.status_code == 200:
@@ -33,11 +33,11 @@ def test_aken_persona():
                 response_text = data['response']
                 print(f"✅ Response: {response_text[:150]}...")
                 
-                # Check if response mentions Aken or AkenoTech
-                if "aken" in response_text.lower() or "akenotech" in response_text.lower():
-                    print("   ✅ Mentions Aken/AkenoTech")
+                # Check if response mentions Softbot or Soft Techniques
+                if "softbot" in response_text.lower() or "soft techniques" in response_text.lower():
+                    print("   ✅ Mentions Softbot/Soft Techniques")
                 else:
-                    print("   ⚠️  Doesn't mention Aken/AkenoTech")
+                    print("   ⚠️  Doesn't mention Softbot/Soft Techniques")
             else:
                 print(f"❌ Error: {response.status_code}")
                 
@@ -46,7 +46,7 @@ def test_aken_persona():
 
 def main():
     """Run the test"""
-    print("🚀 Testing Aken Persona")
+    print("🚀 Testing Softbot Persona")
     print("=" * 40)
     
     # Check if server is running
@@ -64,14 +64,14 @@ def main():
     print("✅ Server is running!")
     
     # Test the persona
-    test_aken_persona()
+    test_softbot_persona()
     
     print("\n" + "=" * 40)
-    print("🎉 Aken persona test completed!")
+    print("🎉 Softbot persona test completed!")
     print("\n📝 Expected behavior:")
-    print("   - Chatbot should introduce itself as Aken from AkenoTech")
+    print("   - Chatbot should introduce itself as Softbot from Soft Techniques")
     print("   - Responses should be personable and professional")
-    print("   - Should emphasize AkenoTech's custom AI solutions")
+    print("   - Should emphasize Soft Techniques' custom AI solutions")
 
 if __name__ == "__main__":
     main()

@@ -503,16 +503,16 @@ class SimpleKnowledgeBase:
         self.add_documents_from_text(texts, metadata)
         print("Initialized knowledge base with agentic AI content")
     
-    def add_akenotech_company_content(self):
-        """Add AkenoTech company-focused content to the knowledge base"""
-        print("Adding AkenoTech company content to knowledge base...")
+    def add_softtechniques_company_content(self):
+        """Add Soft Techniques company-focused content to the knowledge base"""
+        print("Adding Soft Techniques company content to knowledge base...")
         
-        akenotech_documents = [
+        softtechniques_documents = [
             {
                 "content": """
-                About AkenoTech - Custom AI Solutions Company
+                About Soft Techniques - Custom AI Solutions Company
                 
-                AkenoTech is a leading custom AI solutions company that specializes in developing tailored artificial intelligence systems for businesses across various industries. We combine cutting-edge AI technology with deep industry expertise to deliver solutions that drive real business value.
+                Soft Techniques is a leading custom AI solutions company that specializes in developing tailored artificial intelligence systems for businesses across various industries. We combine cutting-edge AI technology with deep industry expertise to deliver solutions that drive real business value.
                 
                 Our Mission:
                 - Transform businesses through custom AI solutions
@@ -520,19 +520,19 @@ class SimpleKnowledgeBase:
                 - Build long-term partnerships with our clients
                 - Make advanced AI technology accessible to all businesses
                 
-                Why Choose AkenoTech:
+                Why Choose Soft Techniques:
                 - Custom AI solutions tailored to your specific needs
                 - Experienced team of AI engineers and data scientists
                 - Proven track record across multiple industries
                 - End-to-end services from strategy to implementation
                 
-                Ready to transform your business with custom AI? Contact AkenoTech for a free consultation.
+                Ready to transform your business with custom AI? Contact Soft Techniques for a free consultation.
                 """,
-                "metadata": {"source": "akenotech_company_overview", "category": "company"}
+                "metadata": {"source": "softtechniques_company_overview", "category": "company"}
             },
             {
                 "content": """
-                AkenoTech's Comprehensive AI Services
+                Soft Techniques' Comprehensive AI Services
                 
                 Our Core AI Services:
                 - Custom AI Model Development - Tailored AI solutions for your business
@@ -557,11 +557,11 @@ class SimpleKnowledgeBase:
                 
                 Interested in our AI services? Schedule a consultation to discuss your specific needs.
                 """,
-                "metadata": {"source": "akenotech_services", "category": "services"}
+                "metadata": {"source": "softtechniques_services", "category": "services"}
             },
             {
                 "content": """
-                AkenoTech's AI Development Process
+                Soft Techniques' AI Development Process
                 
                 Our Proven Development Methodology:
                 
@@ -591,11 +591,11 @@ class SimpleKnowledgeBase:
                 
                 Our commitment to quality ensures every AI solution delivers measurable business value.
                 """,
-                "metadata": {"source": "akenotech_process", "category": "process"}
+                "metadata": {"source": "softtechniques_process", "category": "process"}
             },
             {
                 "content": """
-                Why Choose AkenoTech for Your AI Needs
+                Why Choose Soft Techniques for Your AI Needs
                 
                 Our Competitive Advantages:
                 
@@ -623,15 +623,15 @@ class SimpleKnowledgeBase:
                 - 40% reduction in manual processes
                 - 25% increase in revenue for our clients
                 
-                Ready to experience the AkenoTech difference? Contact us for a free consultation.
+                Ready to experience the Soft Techniques difference? Contact us for a free consultation.
                 """,
-                "metadata": {"source": "akenotech_advantages", "category": "advantages"}
+                "metadata": {"source": "softtechniques_advantages", "category": "advantages"}
             }
         ]
         
-        # Add AkenoTech documents to knowledge base
-        self.add_documents(akenotech_documents)
-        print(f"Added {len(akenotech_documents)} AkenoTech company documents to knowledge base")
+        # Add Soft Techniques documents to knowledge base
+        self.add_documents(softtechniques_documents)
+        print(f"Added {len(softtechniques_documents)} Soft Techniques company documents to knowledge base")
     
     def get_knowledge_base_status(self) -> Dict[str, Any]:
         """Get status information about the knowledge base"""

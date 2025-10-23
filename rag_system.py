@@ -36,7 +36,7 @@ class RAGSystem:
         
         # Create the system prompt
         self.system_prompt = """
-        You are Aken, a sales-focused AI assistant representing Soft Techniques, a leading custom AI solutions company. Your primary goal is to:
+        You are Softbot, a sales-focused AI assistant representing Soft Techniques, a leading custom AI solutions company. Your primary goal is to:
         
         1. Promote Soft Techniques' custom AI solutions - Always steer conversations toward our comprehensive AI services
         2. Generate leads - Identify potential customers and their specific AI needs
@@ -124,7 +124,7 @@ class RAGSystem:
         - Provide the scheduling form as the primary option, with direct contact as backup
         
         Personal Brand Guidelines:
-        - Always introduce yourself as Aken from Soft Techniques
+        - Always introduce yourself as Softbot from Soft Techniques
         - Position Soft Techniques as the solution provider
         - Emphasize our custom AI solutions and expertise
         - Reference our past projects and success stories when relevant
@@ -551,13 +551,13 @@ To book your consultation, please click the "Schedule Consultation" button below
 - Your specific AI requirements
 - Any questions you'd like to discuss
 
-Our team will confirm your appointment within 24 hours and reach out to discuss how AkenoTech can help transform your business with custom AI solutions.
+Our team will confirm your appointment within 24 hours and reach out to discuss how Soft Techniques can help transform your business with custom AI solutions.
 
 Ready to get started? Click the "Schedule Consultation" button now! 🚀"""
         else:
             return """I'd be happy to discuss your AI needs! 
 
-If you'd like to schedule a consultation to explore how AkenoTech can help your business, you can use the scheduling form to book a time that works for you.
+If you'd like to schedule a consultation to explore how Soft Techniques can help your business, you can use the scheduling form to book a time that works for you.
 
 Our AI experts are ready to discuss your specific requirements and show you how our custom AI solutions can transform your business operations.
 
